@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" ng-app="root">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Testimonials fot LightIT</title>
+	<link rel="stylesheet" href="css/vendors.min.css">
+	<link rel="stylesheet" href="css/app.min.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="header">
+				<a class="logo" href="#">
+					<img src="images/logo.png" alt="OTZOVIK mini logo">
+				</a>
+				<div class="search-wrap">
+					<input type="search" class="search" ng-model="search">
+					<span class="glyphicon glyphicon-search"></span>
+				</div>
+				<div class="auth-wrap" ng-controller="authCtrl">
+					<div class="auth" ng-hide="getUser()">
+						<a class="btn btn-primary" data-fancybox data-src="#signin-form">
+							<span class="glyphicon glyphicon-log-in"></span>
+							Sign in
+						</a>
+						<span class="or">or</span>
+						<a class="btn btn-success" data-fancybox data-src="#signup-form">
+							<span class="glyphicon glyphicon-user"></span>
+							Sign up
+						</a>
+					</div>
+					<div class="user-wrap" ng-show="getUser()">
+						<a href="#" class="user">
+							<div class="userpic">
+								<span class="glyphicon glyphicon-user"></span>
+								<img src="http://placehold.it/38?text=+" class="img-circle" alt="avatar">
+							</div>
+							<span class="username">
+								{{getUser().username}}
+							</span>
+						</a>
+						<button class="btn btn-default" ng-click="logout()">
+							<span class="glyphicon glyphicon-log-out"></span>
+							Logout
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container" ng-controller="productCtrl">
+		<div class="row">
+			<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="product in products | filter:search">
+				<a class="product" data-fancybox data-src="{{'#product_' + product.id}}"
+				   ng-click="getReviews(product.id)">
+					<div class="image-wrap">
+						<img ng-src="images/{{product.img}}" alt="{{product.title}}">
+					</div>
+					<div class="product-title">
+						{{product.title}}
+					</div>
+				</a>
+				<div class="popup product-full" id="{{'product_' + product.id}}">
+					<div class="container">
+						<div class="image-wrap">
+							<img ng-src="images/{{product.img}}" alt="{{product.title}}">
+						</div>
+						<div class="product-info">
+							<div class="product-title">
+								{{product.title}}
+							</div>
+							<div class="product-rate-wrap">
+								<div class="product-rate"></div>
+							</div>
+							<div class="product-desc">
+								{{product.text}}
+							</div>
+						</div>
+						<div class="product-reviews">
+							<p ng-repeat="review in reviews">
+								{{review.text}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl" ng-submit="login(signinForm)">
+		<div class="form-group">
+			<label for="si-name" class="control-label">Username</label>
+			<input type="text" id="si-name" name="username" class="form-control" ng-model="user.username"
+			       placeholder="John Doe" required>
+		</div>
+		<div class="form-group">
+			<label for="si-pass" class="control-label">Password</label>
+			<input type="password" id="si-pass" name="password" class="form-control" ng-model="user.password"
+			       placeholder="Password" required>
+		</div>
+		<button type="submit" class="btn btn-primary submit-btn" ng-class="{disabled: signinForm.$invalid}"
+		        ng-disabled="signinForm.$invalid">
+			<span class="glyphicon glyphicon-log-in"></span>
+			Sign in
+		</button>
+	</form>
+	<form class="popup form" id="signup-form" name="signupForm" ng-controller="registerCtrl"
+	      ng-submit="register(signupForm)">
+		<div class="form-group">
+			<label for="su-name" class="control-label">Username</label>
+			<input type="text" id="su-name" name="username" class="form-control" ng-model="user.username"
+			       placeholder="John Doe" required>
+		</div>
+		<div class="form-group">
+			<label for="su-pass" class="control-label">Password</label>
+			<input type="password" id="su-pass" name="password" class="form-control" ng-model="user.password"
+			       placeholder="Password" required>
+		</div>
+		<div class="form-group">
+			<label for="su-c-pass" class="control-label">Confirm password</label>
+			<input type="password" id="su-c-pass" name="confirm-password" class="form-control"
+			       ng-model="user.confirmPassword" placeholder="Confirm password" required>
+		</div>
+		<button type="submit" class="btn btn-success submit-btn"
+		        ng-class="{disabled: signupForm.$invalid || confirmPassword !== password}"
+		        ng-disabled="signupForm.$invalid || confirmPassword !== password">
+			<span class="glyphicon glyphicon-user"></span>
+			Sign up
+		</button>
+	</form>
+
+	<script src="js/vendors.min.js"></script>
+	<script src="js/app.min.js"></script>
+</body>
+</html>
