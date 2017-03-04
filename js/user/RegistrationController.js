@@ -1,24 +1,35 @@
-registerCtrl.$inject = ['$scope', 'userModel'];
+registerCtrl.$inject = ['$scope', 'User', 'userService'];
 
 angular.module('user')
        .controller('registerCtrl', registerCtrl);
 
-function registerCtrl($scope, userModel) {
+function registerCtrl($scope, User, userService) {
 	$scope.register = function (form) {
 		var username = $scope.user.username,
 			password = $scope.user.password;
+
 		if (username && password) {
-			if (userModel.register(username, password)) {
-				$scope.resetForm(form);
-			}
+			User.register(username, password).then(function (data) {
+				if (data.success) {
+					/* TODO: вынести в директиву */
+					$.fancybox.close();
+					$.fancybox.open({src: '#regSuccess'}, {
+						touch: false,
+						keyboard: false,
+						focus: false,
+						onComplete: function () {
+							setTimeout(function () {$.fancybox.close();}, 3000);
+						}
+					});
+				} else {
+					$scope.errorMessage = data.message;
+				}
+				$scope.user = userService.reset(form);
+			});
 		}
 	};
 
-	$scope.resetForm = function (form) {
-		if (form) {
-			form.$setPristine();
-			form.$setUntouched();
-		}
-		$scope.user = undefined;
+	$scope.onInput = function () {
+		$scope.errorMessage = false;
 	};
 }

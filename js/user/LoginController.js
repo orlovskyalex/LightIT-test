@@ -1,24 +1,27 @@
-loginCtrl.$inject = ['$scope', 'userModel'];
+loginCtrl.$inject = ['$scope', 'User', 'userService'];
 
 angular.module('user')
        .controller('loginCtrl', loginCtrl);
 
-function loginCtrl($scope, userModel) {
+function loginCtrl($scope, User, userService) {
 	$scope.login = function (form) {
 		var username = $scope.user.username,
 			password = $scope.user.password;
+
 		if (username && password) {
-			if (userModel.login(username, password)) {
-				$scope.resetForm(form);
-			}
+			User.login(username, password).then(function (data) {
+				if (data.success) {
+					/* TODO: вынести в директиву */
+					$.fancybox.close();
+				} else {
+					$scope.errorMessage = data.message;
+				}
+				$scope.user = userService.reset(form);
+			});
 		}
 	};
 
-	$scope.resetForm = function (form) {
-		if (form) {
-			form.$setPristine();
-			form.$setUntouched();
-		}
-		$scope.user = undefined;
+	$scope.onInput = function () {
+		$scope.errorMessage = false;
 	};
 }

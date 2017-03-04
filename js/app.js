@@ -5,6 +5,7 @@
 
 // @koala-prepend "user/user.module.js"
 // @koala-prepend "user/UserModel.js"
+// @koala-prepend "user/UserService.js"
 // @koala-prepend "user/AuthController.js"
 // @koala-prepend "user/LoginController.js"
 // @koala-prepend "user/RegistrationController.js"
@@ -12,7 +13,12 @@
 // @koala-prepend "root.js"
 
 $(function () {
-	$('.submit-btn').on('click', function () {
-		$.fancybox.close();
+	$('body').on('click', '.fancybox', function () {
+		var $this = $(this);
+		$.fancybox.open({src: $this.data('src')}, {
+            touch: false,
+            keyboard: false,
+            focus: false
+        });
 	});
 });
