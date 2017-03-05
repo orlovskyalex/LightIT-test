@@ -150,7 +150,8 @@ body {
 	.product-title {
 		margin: 15px 0;
 	}
-	.fullscreen {
+	&::before {
+		content: '';
 		background: transparent;
 		box-shadow: 0 0 5px 0 rgba(0, 113, 179, .75);
 		position: absolute;
@@ -171,7 +172,7 @@ body {
 		.product-title {
 			color: #0071b3;
 		}
-		.fullscreen {
+		&::before {
 			display: block;
 		}
 	}
