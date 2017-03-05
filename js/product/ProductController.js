@@ -1,9 +1,9 @@
-productCtrl.$inject = ['$scope', 'Products', 'reviewModel'];
+productCtrl.$inject = ['$scope', 'Products', 'Reviews'];
 
 angular.module('product')
        .controller('productCtrl', productCtrl);
 
-function productCtrl($scope, Products, reviewModel) {
+function productCtrl($scope, Products, Reviews) {
 	/* прелоадер */
 	$scope.loading = true;
 
@@ -15,7 +15,7 @@ function productCtrl($scope, Products, reviewModel) {
 
 	/* получаем отзывы к продукту при клике на продукт */
 	$scope.getReviews = function (productId) {
-		reviewModel.getReviews(productId).then(function (reviews) {
+		Reviews.getReviews(productId).then(function (reviews) {
 			$scope.reviews = reviews;
 		});
 	};

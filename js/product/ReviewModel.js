@@ -1,16 +1,18 @@
-reviewModel.$inject = ['$http'];
+Reviews.$inject = ['$http'];
 
 angular.module('product')
-       .service('reviewModel', reviewModel);
+       .service('Reviews', Reviews);
 
-function reviewModel($http) {
-	this.getReviews = function (productId) {
-		var req = {
-			method: 'GET',
-			url: 'https://smktesting.herokuapp.com/api/reviews/' + productId
-		};
-		return $http(req).then(function (response) {
-			return response.data;
-		});
-	};
+function Reviews($http) {
+	return {
+		getReviews: function (productId) {
+			var req = {
+				method: 'GET',
+				url: 'https://smktesting.herokuapp.com/api/reviews/' + productId
+			};
+			return $http(req).then(function (response) {
+				return response.data;
+			});
+		}
+	}
 }
