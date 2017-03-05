@@ -1,14 +1,14 @@
-productCtrl.$inject = ['$scope', 'productModel', 'reviewModel'];
+productCtrl.$inject = ['$scope', 'Products', 'reviewModel'];
 
 angular.module('product')
        .controller('productCtrl', productCtrl);
 
-function productCtrl($scope, productModel, reviewModel) {
+function productCtrl($scope, Products, reviewModel) {
 	/* прелоадер */
 	$scope.loading = true;
 
 	/* получаем список продуктов при инициализации приложения */
-	productModel.getProducts().then(function (products) {
+	Products.getProducts().then(function (products) {
 		$scope.products = products;
 		$scope.loading = false;
 	});
