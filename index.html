@@ -52,24 +52,28 @@
 		</div>
 	</header>
 
+	<!-- ПРОДУКТЫ -->
 	<div class="container" ng-controller="productCtrl">
 		<div class="products">
-			<div class="loading" ng-show="loading"></div>
-			<div class="row">
+			<div class="loading" ng-hide="loaded"></div>
+			<div class="row" ng-show="loaded">
 				<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="product in products | filter:search">
-					<div class="product fancybox" data-src="{{'#product_' + product.id}}"
-					     ng-click="getReviews(product.id)">
+					<div class="product fancybox" data-src="{{'#product_' + product.productId}}">
 						<div class="image-wrap">
-							<img ng-src="images/{{product.img}}" alt="{{product.title}}">
+							<img ng-src="images/products/{{product.img}}" alt="{{product.title}}">
 						</div>
 						<div class="product-title">
 							{{product.title}}
 						</div>
+						<div class="stars-rating">
+							<div class="stars-rating-current"
+							     style="{{'width: ' + product.averageRate / 5 * 100 + '%;'}}"></div>
+						</div>
 					</div>
-					<div class="popup product-full" id="{{'product_' + product.id}}">
+					<div class="popup product-full" productId="{{'product_' + product.productId}}">
 						<div class="container">
 							<div class="image-wrap">
-								<img ng-src="images/{{product.img}}" alt="{{product.title}}">
+								<img ng-src="images/products/{{product.img}}" alt="{{product.title}}">
 							</div>
 							<div class="product-info">
 								<div class="product-title">
@@ -84,7 +88,7 @@
 							</div>
 							<div class="product-reviews">
 								<div class="post-review" ng-show="getUser()">123</div>
-								<p ng-repeat="review in reviews">
+								<p ng-repeat="review in product.reviews">
 									{{review.text}}
 								</p>
 							</div>
@@ -95,15 +99,16 @@
 		</div>
 	</div>
 
-	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl" ng-submit="login(signinForm)">
+	<!-- ФОРМЫ -->
+	<form class="popup form" productId="signin-form" name="signinForm" ng-controller="loginCtrl" ng-submit="login(signinForm)">
 		<div class="form-group">
 			<label for="si-name" class="control-label">Username</label>
-			<input type="text" id="si-name" name="username" class="form-control" ng-model="user.username"
+			<input type="text" productId="si-name" name="username" class="form-control" ng-model="user.username"
 			       ng-change="onInput()" placeholder="John Doe" required>
 		</div>
 		<div class="form-group">
 			<label for="si-pass" class="control-label">Password</label>
-			<input type="password" id="si-pass" name="password" class="form-control" ng-model="user.password"
+			<input type="password" productId="si-pass" name="password" class="form-control" ng-model="user.password"
 			       ng-change="onInput()" placeholder="Password" required>
 		</div>
 		<button type="submit" class="btn btn-primary submit-btn" ng-class="{disabled: signinForm.$invalid}"
@@ -113,21 +118,21 @@
 		</button>
 		<span class="error" ng-show="errorMessage">{{errorMessage}}</span>
 	</form>
-	<form class="popup form" id="signup-form" name="signupForm" ng-controller="registerCtrl"
+	<form class="popup form" productId="signup-form" name="signupForm" ng-controller="registerCtrl"
 	      ng-submit="register(signupForm)">
 		<div class="form-group">
 			<label for="su-name" class="control-label">Username</label>
-			<input type="text" id="su-name" name="username" class="form-control" ng-model="user.username"
+			<input type="text" productId="su-name" name="username" class="form-control" ng-model="user.username"
 			       ng-change="onInput()" placeholder="John Doe" required>
 		</div>
 		<div class="form-group">
 			<label for="su-pass" class="control-label">Password</label>
-			<input type="password" id="su-pass" name="password" class="form-control" ng-model="user.password"
+			<input type="password" productId="su-pass" name="password" class="form-control" ng-model="user.password"
 			       ng-change="onInput()" placeholder="Password" required>
 		</div>
 		<div class="form-group">
 			<label for="su-c-pass" class="control-label">Confirm password</label>
-			<input type="password" id="su-c-pass" name="confirm-password" class="form-control"
+			<input type="password" productId="su-c-pass" name="confirm-password" class="form-control"
 			       ng-model="user.confirmPassword" ng-change="onInput()" placeholder="Confirm password" required>
 		</div>
 		<button type="submit" class="btn btn-success submit-btn"
@@ -139,7 +144,8 @@
 		<span class="error" ng-show="errorMessage">{{errorMessage}}</span>
 	</form>
 
-	<div class="popup notification success" id="regSuccess">
+	<!-- УВЕДОМЛЕНИЯ -->
+	<div class="popup notification success" productId="regSuccess">
 		<i class="fa fa-check-circle-o" aria-hidden="true"></i>
 		<header>Congratulation!</header>
 		<p>You can now sign in.</p>
@@ -149,7 +155,6 @@
 		</button>
 	</div>
 
-	<script src="//use.fontawesome.com/eb95055184.js"></script>
 	<script src="js/vendors.min.js"></script>
 	<script src="js/app.min.js"></script>
 </body>

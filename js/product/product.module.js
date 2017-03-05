@@ -1,1 +1,1 @@
-angular.module('product', []);
+angular.module('product', ['shared']);

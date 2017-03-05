@@ -10,6 +10,9 @@
 // @koala-prepend "user/LoginController.js"
 // @koala-prepend "user/RegistrationController.js"
 
+// @koala-prepend "shared/shared.module.js"
+// @koala-prepend "shared/StateManager.js"
+
 // @koala-prepend "root.js"
 
 $(function () {
