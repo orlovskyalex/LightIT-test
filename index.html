@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="en" ng-app="root">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport"
 	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Testimonials fot LightIT</title>
-	<link rel="stylesheet" href="css/vendors.min.css">
-	<link rel="stylesheet" href="css/app.min.css">
+	<link rel="stylesheet" href="assets/css/vendors.min.css">
+	<link rel="stylesheet" href="assets/css/app.min.css">
 </head>
 <body>
 	<header class="header-top">
 		<div class="container">
 			<div class="header">
 				<a class="logo" href="#">
-					<img src="images/logo.png" alt="OTZOVIK mini logo">
+					<img src="assets/images/logo.png" alt="OTZOVIK mini logo">
 				</a>
 				<div class="search-wrap">
 					<input type="search" class="search" ng-model="search">
@@ -60,7 +60,7 @@
 				<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="product in products | filter:search">
 					<div class="product fancybox" data-src="{{'#product_' + product.id}}">
 						<div class="image-wrap">
-							<img ng-src="images/products/{{product.img}}" alt="{{product.title}}">
+							<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
 						</div>
 						<div class="product-title">
 							{{product.title}}
@@ -76,7 +76,7 @@
 					<div class="popup product-full" id="{{'product_' + product.id}}">
 						<div class="container">
 							<div class="image-wrap">
-								<img ng-src="images/products/{{product.img}}" alt="{{product.title}}">
+								<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
 							</div>
 							<div class="product-info">
 								<div class="product-title">
@@ -159,7 +159,7 @@
 		</button>
 	</div>
 
-	<script src="js/vendors.min.js"></script>
-	<script src="js/app.min.js"></script>
+	<script src="assets/js/vendors.min.js"></script>
+	<script src="app.min.js"></script>
 </body>
 </html>
