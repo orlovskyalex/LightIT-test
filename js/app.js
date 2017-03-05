@@ -15,6 +15,7 @@
 $(function () {
 	$('body').on('click', '.fancybox', function () {
 		var $this = $(this);
+		$.fancybox.close();
 		$.fancybox.open({src: $this.data('src')}, {
             touch: false,
             keyboard: false,

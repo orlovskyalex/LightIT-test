@@ -16,10 +16,7 @@ function registerCtrl($scope, User, userService) {
 					$.fancybox.open({src: '#regSuccess'}, {
 						touch: false,
 						keyboard: false,
-						focus: false,
-						onComplete: function () {
-							setTimeout(function () {$.fancybox.close();}, 3000);
-						}
+						focus: false
 					});
 				} else {
 					$scope.errorMessage = data.message;
