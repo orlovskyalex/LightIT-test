@@ -135,7 +135,12 @@ body {
 }
 
 .product {
+	box-shadow: 0 0 4px 1px rgba(0, 0, 0, .2);
+	cursor: pointer;
 	display: block;
+	position: relative;
+	text-align: center;
+	padding: 10px;
 	.image-wrap {
 		img {
 			height: auto;
@@ -143,7 +148,32 @@ body {
 		}
 	}
 	.product-title {
-		text-align: center;
+		margin: 15px 0;
+	}
+	.fullscreen {
+		background: transparent;
+		box-shadow: 0 0 5px 0 rgba(0, 113, 179, .75);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: none;
+		width: ~'calc(100% + 20px)';
+		height: ~'calc(100% + 20px)';
+	}
+	.reviews-number {
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 5px;
+	}
+	&:hover {
+		box-shadow: none;
+		.product-title {
+			color: #0071b3;
+		}
+		.fullscreen {
+			display: block;
+		}
 	}
 }
 
@@ -171,10 +201,15 @@ body {
 
 .stars-rating {
 	background: url(../images/stars-empty.png) 0 center no-repeat;
-	height: 50px;
-	width: 278px;
+	background-size: cover;
+	display: inline-block;
+	height: 23px;
+	width: 128px;
+	text-align: left;
+	margin: 0 5px;
 	.stars-rating-current {
 		background: url(../images/stars-full.png) 0 center no-repeat;
+		background-size: cover;
 		display: inline-block;
 		height: 100%;
 		overflow: hidden;

@@ -24,6 +24,7 @@ function Products($http, Reviews, StateManager) {
 					Reviews.getReviews(productId).then((function (i, taskId) {
 						return function (reviews) {
 							products[i].reviews = reviews;
+							products[i].reviewsNumber = reviews.length;
 							products[i].averageRate = Reviews.getAverageRate(products[i]);
 							StateManager.remove(taskId);
 						}
