@@ -13,16 +13,30 @@
 // @koala-prepend "user/userModel.js"
 // @koala-prepend "user/userService.js"
 
-angular.module('app', ['app.user', 'app.products', 'app.shared']);
+(function () {
+	angular.module('app', ['app.user', 'app.products', 'app.shared'])
+	       .directive('index', index);
 
-/*$(function () {
-	$('body').on('click', '.fancybox', function () {
-		var $this = $(this);
-		$.fancybox.close();
-		$.fancybox.open({src: $this.data('src')}, {
-            touch: false,
-            keyboard: false,
-            focus: false
-        });
-	});
-});*/
+	function index() {
+		var directive = {
+			restrict: 'A',
+			link: link
+		};
+
+		return directive;
+
+		function link() {
+			angular.element(document).ready(function () {
+				angular.element('body').on('click', '.fancybox', function () {
+					var $this = $(this);
+					$.fancybox.close();
+					$.fancybox.open({src: $this.data('src')}, {
+						touch: false,
+						keyboard: false,
+						focus: false
+					});
+				});
+			});
+		}
+	}
+})();
