@@ -18,12 +18,10 @@
 	       .directive('index', index);
 
 	function index() {
-		var directive = {
+		return {
 			restrict: 'A',
 			link: link
 		};
-
-		return directive;
 
 		function link() {
 			angular.element(document).ready(function () {
