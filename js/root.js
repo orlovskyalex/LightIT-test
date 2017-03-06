@@ -1,1 +1,1 @@
-angular.module('root', ['user', 'product']);
+angular.module('root', ['user', 'product', 'review', 'shared']);

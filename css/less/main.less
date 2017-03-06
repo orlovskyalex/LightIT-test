@@ -105,9 +105,6 @@ body {
 			vertical-align: middle;
 		}
 	}
-	&.product-full {
-		padding: 30px 15px;
-	}
 	&.notification {
 		font: normal 28px @font-OpenSansRegular;
 		max-width: 400px;
@@ -180,6 +177,53 @@ body {
 
 .product-full {
 	display: none;
+	max-width: 800px;
+	width: 100%;
+	.row {
+		&:not(:last-of-type) {
+			margin-bottom: 50px;
+		}
+	}
+	.product-info {
+		text-align: right;
+	}
+	.product-title {
+		font-size: 24px;
+		text-align: center;
+	}
+	.stars-rating {
+		height: 19px;
+		margin-top: 20px;
+		width: 104px;
+	}
+	.product-desc {
+		margin-top: 20px;
+		text-align: left;
+	}
+	.review {
+		&:not(:last-child) {
+			margin-bottom: 30px;
+		}
+		.username {
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 18px;
+			font-weight: bold;
+			margin-right: 30px;
+		}
+		.stars-rating {
+			margin: 0;
+			vertical-align: middle;
+		}
+		.date {
+			float: right;
+			vertical-align: middle;
+			display: inline-block;
+		}
+		.text {
+			margin: 10px 0 0;
+		}
+	}
 }
 
 .loading {
@@ -215,5 +259,48 @@ body {
 		height: 100%;
 		overflow: hidden;
 		vertical-align: top;
+	}
+}
+
+.post-stars-rating {
+	font-size: 0;
+	margin-bottom: 10px;
+	.stars-rating-wrap {
+		display: inline-block;
+		font-size: 18px;
+		&::after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+		.stars-rating-ico {
+			float: right;
+			padding-left: 2px;
+			cursor: pointer;
+			color: #ffb300;
+			&:last-child {
+				padding-left: 0;
+			}
+			&:hover {
+				&::before {
+					content: '\f005';
+				}
+				& ~ .stars-rating-ico {
+					&::before {
+						content: '\f005';
+					}
+				}
+			}
+		}
+		.stars-rating-input {
+			display: none;
+			&:checked {
+				& ~ .stars-rating-ico {
+					&::before {
+						content: '\f005';
+					}
+				}
+			}
+		}
 	}
 }
