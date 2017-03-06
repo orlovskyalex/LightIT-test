@@ -93,11 +93,24 @@
 									{{product.text}}
 								</div>
 							</div>
-							<div class="product-reviews">
-								<div class="post-review" ng-show="getUser()">123</div>
-								<p ng-repeat="review in product.reviews">
-									{{review.text}}
-								</p>
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="product-reviews">
+										<div class="review" ng-repeat="review in product.reviews | orderBy:'-created_at'">
+											<div class="meta">
+												<span class="username">{{review.created_by.username}}</span>
+												<div class="stars-rating" ng-if="review.rate">
+													<div class="stars-rating-current"
+													     style="{{'width: ' + review.rate / 5 * 100 + '%;'}}"></div>
+												</div>
+												<span class="date">{{review.created_at | date:'dd MMMM yyyy'}}</span>
+											</div>
+											<p class="text">
+												{{review.text}}
+											</p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
