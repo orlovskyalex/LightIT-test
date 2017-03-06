@@ -1,13 +1,25 @@
 (function () {
-	productCtrl.$inject = ['$scope', 'Products'];
-
 	angular.module('app.products')
 	       .controller('productCtrl', productCtrl);
 
-	function productCtrl($scope, Products) {
+	productCtrl.$inject = ['Products'];
+
+	function productCtrl(Products) {
+		var vm = this;
+		vm.products = [];
+		vm.error = false;
+
 		/* получаем список продуктов при инициализации приложения */
-		Products.getProducts().then(function (products) {
-			$scope.products = products;
-		});
+		activate();
+
+		function activate() {
+			return getProducts();
+		}
+
+		function getProducts() {
+			return Products.getProducts().then(function (products) {
+				return products ? vm.products = products : vm.error = true;
+			});
+		}
 	}
 })();

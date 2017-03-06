@@ -53,11 +53,15 @@
 	</header>
 
 	<!-- ПРОДУКТЫ -->
-	<div class="container" ng-controller="productCtrl">
+	<div class="container" ng-controller="productCtrl as products">
 		<div class="products">
-			<div class="loading" ng-hide="loaded"></div>
-			<div class="row" ng-show="loaded">
-				<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="product in products | filter:search">
+			<div class="loading" ng-if="!loaded && !products.error"></div>
+			<div class="error" ng-if="products.error">
+				Ooops! Something went wrong. Please, reload this page.
+			</div>
+			<div class="row" ng-if="loaded">
+				<div class="col-sm-6 col-md-4 col-lg-3"
+				     ng-repeat="product in products.products | filter:{title:search}">
 					<div class="product fancybox" data-src="{{'#product_' + product.id}}">
 						<div class="image-wrap">
 							<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
