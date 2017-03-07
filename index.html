@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="assets/css/vendors.min.css">
 	<link rel="stylesheet" href="assets/css/app.min.css">
 </head>
-<body index>
+<body>
 	<header class="header-top">
 		<div class="container">
 			<div class="header">
@@ -22,18 +22,19 @@
 				</div>
 				<div class="auth-wrap" ng-controller="authCtrl" ng-cloak>
 					<div class="auth" ng-if="!user">
-						<button class="btn btn-primary fancybox" data-src="#signin-form">
+						<button class="btn btn-primary" open-fancybox="#signin-form">
 							<span class="glyphicon glyphicon-log-in"></span>
 							Sign in
 						</button>
 						<span class="or">or</span>
-						<button class="btn btn-success fancybox" data-src="#signup-form">
+						<button class="btn btn-success" open-fancybox="#signup-form">
 							<span class="glyphicon glyphicon-user"></span>
 							Sign up
 						</button>
 					</div>
 					<div class="user-wrap" ng-if="user">
 						<a href="#" class="user">
+							<!-- аватар тут чисто декоративный -->
 							<div class="userpic">
 								<span class="glyphicon glyphicon-user"></span>
 								<img src="http://placehold.it/38?text=+" class="img-circle" alt="avatar">
@@ -54,7 +55,7 @@
 
 	<!-- ПРОДУКТЫ -->
 	<div class="container" ng-controller="productCtrl as products">
-		<div class="products">
+		<div class="products" ng-cloak>
 			<div class="loading" ng-if="!loaded && !products.error"></div>
 			<div class="error" ng-if="products.error">
 				Ooops! Something went wrong. Please, reload this page.
@@ -62,7 +63,7 @@
 			<div class="row" ng-if="loaded">
 				<div class="col-sm-6 col-md-4 col-lg-3"
 				     ng-repeat="product in products.products | filter:{title:search}">
-					<div class="product fancybox" data-src="{{'#product_' + product.id}}">
+					<div class="product" open-fancybox="{{'#product_' + product.id}}">
 						<div class="image-wrap">
 							<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
 						</div>
@@ -96,7 +97,8 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="product-reviews">
-										<div class="review" ng-repeat="review in product.reviews | orderBy:'-created_at'">
+										<div class="review"
+										     ng-repeat="review in product.reviews | orderBy:'-created_at'">
 											<div class="meta">
 												<span class="username">{{review.created_by.username}}</span>
 												<div class="stars-rating" ng-if="review.rate">
@@ -120,8 +122,7 @@
 	</div>
 
 	<!-- ФОРМЫ -->
-	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl"
-	      ng-submit="login(signinForm)">
+	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl" ng-submit="login(signinForm)">
 		<div class="form-group">
 			<label for="si-name" class="control-label">Username</label>
 			<input type="text" id="si-name" name="username" class="form-control" ng-model="user.username"
@@ -170,7 +171,7 @@
 		<i class="fa fa-check-circle-o" aria-hidden="true"></i>
 		<header>Congratulation!</header>
 		<p>You can now sign in.</p>
-		<button class="btn btn-primary fancybox" data-src="#signin-form">
+		<button class="btn btn-primary" open-fancybox="#signin-form">
 			<span class="glyphicon glyphicon-log-in"></span>
 			Sign in
 		</button>
