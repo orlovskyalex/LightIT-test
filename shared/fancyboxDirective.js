@@ -7,9 +7,12 @@
 	function fancybox(fancyboxService) {
 		return {
 			restrict: 'A',
-			link: function (scope, element, attrs) {
-				element.bind('click', function () {
-					fancyboxService.open(attrs.fancyboxSrc);
+			scope: {
+				fancybox: '@'
+			},
+			link: function (scope, element) {
+				element.on('click', function () {
+					fancyboxService.open(scope.fancybox);
 				});
 			}
 		}
