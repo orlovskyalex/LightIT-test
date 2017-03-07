@@ -5,8 +5,11 @@
 	Products.$inject = ['$http', 'Reviews', 'StateManager'];
 
 	function Products($http, Reviews, StateManager) {
+		var products = [];
+
 		return {
-			getProducts: getProducts
+			getProducts: getProducts,
+			currentProductsState: currentProductsState
 		};
 
 		function getProducts() {
@@ -19,7 +22,7 @@
 				.catch(getProductsFailed);
 
 			function getProductsComplete(response) {
-				var products = response.data;
+				products = response.data;
 
 				/* для каждого продукта сразу получаем его отзывы, считаем средний рейтинг и количество отзывов */
 				for (var i in products) {
@@ -32,10 +35,15 @@
 
 					Reviews.getReviews(productId).then((function (i, taskId) {
 						return function (reviews) {
-							products[i].reviews = reviews;
-							products[i].reviewsNumber = reviews.length;
-							products[i].averageRate = Reviews.getAverageRate(products[i]);
-
+							/* эта реализация проверки ошибок при получении отзывов кажется мне костыльной, но я не
+							 придумал лучше... */
+							if (reviews === undefined) {
+								products = undefined;
+							} else {
+								products[i].reviews = reviews;
+								products[i].reviewsNumber = reviews.length;
+								products[i].averageRate = Reviews.getAverageRate(products[i]);
+							}
 							StateManager.remove(taskId);
 						}
 					})(i, taskId));
@@ -47,6 +55,10 @@
 			function getProductsFailed() {
 				return undefined;
 			}
+		}
+
+		function currentProductsState() {
+			return products;
 		}
 	}
 })();
