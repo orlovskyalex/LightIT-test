@@ -4,13 +4,15 @@
 
 	function userService() {
 		return {
-			reset: function (form) {
-				if (form) {
-					form.$setPristine();
-					form.$setUntouched();
-				}
-				return undefined;
+			reset: reset
+		};
+
+		function reset(form) {
+			if (form) {
+				form.$setPristine();
+				form.$setUntouched();
 			}
+			return {};
 		}
 	}
 })();

@@ -22,12 +22,12 @@
 				</div>
 				<div class="auth-wrap" ng-controller="authCtrl" ng-cloak>
 					<div class="auth" ng-if="!user">
-						<button class="btn btn-primary" open-fancybox="#signin-form">
+						<button class="btn btn-primary" fancybox fancybox-src="#signin-form">
 							<span class="glyphicon glyphicon-log-in"></span>
 							Sign in
 						</button>
 						<span class="or">or</span>
-						<button class="btn btn-success" open-fancybox="#signup-form">
+						<button class="btn btn-success" fancybox fancybox-src="#signup-form">
 							<span class="glyphicon glyphicon-user"></span>
 							Sign up
 						</button>
@@ -63,7 +63,7 @@
 			<div class="row" ng-if="loaded">
 				<div class="col-sm-6 col-md-4 col-lg-3"
 				     ng-repeat="product in products.products | filter:{title:search}">
-					<div class="product" open-fancybox="{{'#product_' + product.id}}">
+					<div class="product" fancybox fancybox-src="{{'#product_' + product.id}}">
 						<div class="image-wrap">
 							<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
 						</div>
@@ -122,6 +122,7 @@
 	</div>
 
 	<!-- ФОРМЫ -->
+	<!-- вход -->
 	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl" ng-submit="login(signinForm)">
 		<div class="form-group">
 			<label for="si-name" class="control-label">Username</label>
@@ -140,38 +141,40 @@
 		</button>
 		<span class="error" ng-show="errorMessage">{{errorMessage}}</span>
 	</form>
-	<form class="popup form" id="signup-form" name="signupForm" ng-controller="registerCtrl"
-	      ng-submit="register(signupForm)">
+	<!-- регистрация -->
+	<form class="popup form" id="signup-form" name="signupForm" ng-controller="registerCtrl as reg"
+	      ng-submit="reg.register(signupForm)">
 		<div class="form-group">
 			<label for="su-name" class="control-label">Username</label>
-			<input type="text" id="su-name" name="username" class="form-control" ng-model="user.username"
-			       ng-change="onInput()" placeholder="John Doe" required>
+			<input type="text" id="su-name" class="form-control" ng-model="reg.user.username"
+			       ng-change="reg.resetError()" placeholder="John Doe" required>
 		</div>
 		<div class="form-group">
 			<label for="su-pass" class="control-label">Password</label>
-			<input type="password" id="su-pass" name="password" class="form-control" ng-model="user.password"
-			       ng-change="onInput()" placeholder="Password" required>
+			<input type="password" id="su-pass" class="form-control" ng-model="reg.user.password"
+			       ng-change="reg.resetError()" placeholder="Password" required>
 		</div>
 		<div class="form-group">
 			<label for="su-c-pass" class="control-label">Confirm password</label>
-			<input type="password" id="su-c-pass" name="confirm-password" class="form-control"
-			       ng-model="user.confirmPassword" ng-change="onInput()" placeholder="Confirm password" required>
+			<input type="password" id="su-c-pass" class="form-control" ng-model="reg.user.confirmPassword"
+			       ng-change="reg.resetError()" placeholder="Confirm password" required>
 		</div>
 		<button type="submit" class="btn btn-success submit-btn"
-		        ng-class="{disabled: signupForm.$invalid || confirmPassword !== password}"
-		        ng-disabled="signupForm.$invalid || confirmPassword !== password">
+		        ng-class="{disabled: signupForm.$invalid || reg.user.confirmPassword !== reg.user.password}"
+		        ng-disabled="signupForm.$invalid || reg.user.confirmPassword !== reg.user.password">
 			<span class="glyphicon glyphicon-user"></span>
 			Sign up
 		</button>
-		<span class="error" ng-show="errorMessage">{{errorMessage}}</span>
+		<span class="error" ng-if="reg.errorMessage">{{reg.errorMessage}}</span>
 	</form>
 
 	<!-- УВЕДОМЛЕНИЯ -->
+	<!-- успешная регистрация -->
 	<div class="popup notification success" id="regSuccess">
 		<i class="fa fa-check-circle-o" aria-hidden="true"></i>
 		<header>Congratulation!</header>
 		<p>You can now sign in.</p>
-		<button class="btn btn-primary" open-fancybox="#signin-form">
+		<button class="btn btn-primary" fancybox fancybox-src="#signin-form">
 			<span class="glyphicon glyphicon-log-in"></span>
 			Sign in
 		</button>

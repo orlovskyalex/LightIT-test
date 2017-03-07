@@ -4,7 +4,8 @@
 // @koala-prepend "products/reviewsModel.js"
 
 // @koala-prepend "shared/app.shared.js"
-// @koala-prepend "shared/openFancybox.js"
+// @koala-prepend "shared/fancyboxDirective.js"
+// @koala-prepend "shared/fancyboxService.js"
 // @koala-prepend "shared/StateManager.js"
 
 // @koala-prepend "user/app.user.js"
