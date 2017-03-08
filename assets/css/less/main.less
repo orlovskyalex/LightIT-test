@@ -99,14 +99,6 @@ body {
 	padding: 30px;
 	&.form {
 		width: 500px;
-		.error {
-			color: red;
-			margin-left: 10px;
-			vertical-align: middle;
-		}
-	}
-	&.product-full {
-		padding: 30px 15px;
 	}
 	&.notification {
 		font: normal 28px @font-OpenSansRegular;
@@ -180,6 +172,54 @@ body {
 
 .product-full {
 	display: none;
+	max-width: 800px;
+	width: 100%;
+	.row {
+		&:not(:last-of-type) {
+			margin-bottom: 50px;
+		}
+	}
+	.product-info {
+		text-align: right;
+	}
+	.product-title {
+		font-size: 24px;
+		text-align: center;
+	}
+	.stars-rating {
+		height: 19px;
+		margin-top: 20px;
+		width: 104px;
+	}
+	.product-desc {
+		margin-top: 20px;
+		text-align: left;
+	}
+	.review {
+		&:not(:last-child) {
+			border-bottom: 1px solid #eaeaea;
+			margin-bottom: 30px;
+			padding-bottom: 20px;
+		}
+		.meta {
+			align-items: center;
+			display: flex;
+			.username {
+				font: normal 18px/1 @font-OpenSansSemiBold;
+				margin-right: 30px;
+			}
+			.stars-rating {
+				margin: 0;
+			}
+			.date {
+				font-size: 14px;
+				margin-left: auto;
+			}
+		}
+		.text {
+			margin: 10px 0 0;
+		}
+	}
 }
 
 .loading {
@@ -215,5 +255,61 @@ body {
 		height: 100%;
 		overflow: hidden;
 		vertical-align: top;
+	}
+}
+
+.post-review {
+	.post-stars-rating {
+		font-size: 0;
+		margin-bottom: 10px;
+		.stars-rating-wrap {
+			display: inline-block;
+			font-size: 18px;
+			&::after {
+				content: '';
+				display: table;
+				clear: both;
+			}
+			.stars-rating-ico {
+				float: right;
+				padding-left: 2px;
+				cursor: pointer;
+				color: #ffb300;
+				&:last-child {
+					padding-left: 0;
+				}
+				&:hover {
+					&::before {
+						content: '\f005';
+					}
+					& ~ .stars-rating-ico {
+						&::before {
+							content: '\f005';
+						}
+					}
+				}
+			}
+			.stars-rating-input {
+				display: none;
+				&:checked {
+					& ~ .stars-rating-ico {
+						&::before {
+							content: '\f005';
+						}
+					}
+				}
+			}
+		}
+	}
+	.text {
+		resize: vertical;
+	}
+}
+
+.form {
+	.error {
+		color: red;
+		margin-left: 10px;
+		vertical-align: middle;
 	}
 }

@@ -79,38 +79,88 @@
 						</div>
 					</div>
 					<div class="popup product-full" id="{{'product_' + product.id}}">
-						<div class="container">
-							<div class="image-wrap">
-								<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
-							</div>
-							<div class="product-info">
-								<div class="product-title">
-									{{product.title}}
-								</div>
-								<div class="product-rate-wrap">
-									<div class="product-rate"></div>
-								</div>
-								<div class="product-desc">
-									{{product.text}}
+						<div class="row">
+							<div class="col-md-5">
+								<div class="image-wrap">
+									<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="product-reviews">
-										<div class="review"
-										     ng-repeat="review in product.reviews | orderBy:'-created_at'">
-											<div class="meta">
-												<span class="username">{{review.created_by.username}}</span>
-												<div class="stars-rating" ng-if="review.rate">
-													<div class="stars-rating-current"
-													     style="{{'width: ' + review.rate / 5 * 100 + '%;'}}"></div>
-												</div>
-												<span class="date">{{review.created_at | date:'dd MMMM yyyy'}}</span>
-											</div>
-											<p class="text">
-												{{review.text}}
-											</p>
+							<div class="col-md-7">
+								<div class="product-info">
+									<div class="product-title">
+										{{product.title}}
+									</div>
+									<div class="stars-rating">
+										<div class="stars-rating-current"
+										     style="{{'width: ' + product.averageRate / 5 * 100 + '%;'}}"></div>
+									</div>
+									<div class="product-desc">
+										{{product.text}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" ng-if="products.user">
+							<div class="col-sm-12">
+								<form class="form post-review" name="reviewForm"
+								      ng-controller="postReviewCtrl as post" ng-submit="post.postReview(reviewForm)">
+									<input type="hidden" ng-init="post.product.id = product.id">
+									<div class="post-stars-rating">
+										<div class="stars-rating-wrap">
+											<input class="stars-rating-input" id="stars-rating-5" type="radio"
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="5">
+											<label class="stars-rating-ico fa fa-star-o fa-lg"
+											       for="stars-rating-5"></label>
+											<input class="stars-rating-input" id="stars-rating-4" type="radio"
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="4">
+											<label class="stars-rating-ico fa fa-star-o fa-lg"
+											       for="stars-rating-4"></label>
+											<input class="stars-rating-input" id="stars-rating-3" type="radio"
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="3">
+											<label class="stars-rating-ico fa fa-star-o fa-lg"
+											       for="stars-rating-3"></label>
+											<input class="stars-rating-input" id="stars-rating-2" type="radio"
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="2">
+											<label class="stars-rating-ico fa fa-star-o fa-lg"
+											       for="stars-rating-2"></label>
+											<input class="stars-rating-input" id="stars-rating-1" type="radio"
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="1">
+											<label class="stars-rating-ico fa fa-star-o fa-lg"
+											       for="stars-rating-1"></label>
 										</div>
+									</div>
+									<div class="form-group">
+										<label for="review" class="control-label">Comment:</label>
+										<textarea id="review" class="text form-control" ng-model="post.product.review"
+										          ng-change="post.resetError()" rows="5" required></textarea>
+									</div>
+									<button class="btn btn-primary" ng-class="{disabled: reviewForm.$invalid}"
+									        ng-disabled="reviewForm.$invalid">
+										<span class="glyphicon glyphicon-ok"></span>
+										Post
+									</button>
+									<span class="error" ng-if="post.error">
+										Something went wrong. Please, try again.
+									</span>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="product-reviews">
+									<div class="review"
+									     ng-repeat="review in product.reviews | orderBy:'-created_at'">
+										<div class="meta">
+											<span class="username">{{review.created_by.username}}</span>
+											<div class="stars-rating" ng-if="review.rate">
+												<div class="stars-rating-current"
+												     style="{{'width: ' + review.rate / 5 * 100 + '%;'}}"></div>
+											</div>
+											<span class="date">{{review.created_at | date:'dd MMMM yyyy'}}</span>
+										</div>
+										<p class="text">
+											{{review.text}}
+										</p>
 									</div>
 								</div>
 							</div>
@@ -178,6 +228,16 @@
 			<span class="glyphicon glyphicon-log-in"></span>
 			Sign in
 		</button>
+	</div>
+	<!-- отзыв опубликован -->
+	<div class="popup notification success" id="postSuccess">
+		<i class="fa fa-check-circle-o" aria-hidden="true"></i>
+		<header>Congratulation!</header>
+		<p>
+			Your review was successfully posted!
+			<br>
+			Please, refresh the page to see it.
+		</p>
 	</div>
 
 	<script src="assets/js/vendors.min.js"></script>

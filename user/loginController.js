@@ -1,10 +1,10 @@
 (function () {
-	loginCtrl.$inject = ['$scope', 'User', 'userService'];
+	loginCtrl.$inject = ['$scope', 'User', 'Form', 'fancyboxService'];
 
 	angular.module('app.user')
 	       .controller('loginCtrl', loginCtrl);
 
-	function loginCtrl($scope, User, userService) {
+	function loginCtrl($scope, User, Form, fancyboxService) {
 		$scope.login = function (form) {
 			var username = $scope.user.username,
 				password = $scope.user.password;
@@ -12,12 +12,11 @@
 			if (username && password) {
 				User.login(username, password).then(function (data) {
 					if (data.success) {
-						/* TODO: вынести в директиву */
-						$.fancybox.close();
+						fancyboxService.close();
 					} else {
 						$scope.errorMessage = data.message;
 					}
-					$scope.user = userService.reset(form);
+					$scope.user = Form.reset(form);
 				});
 			}
 		};

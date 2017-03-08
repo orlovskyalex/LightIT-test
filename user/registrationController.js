@@ -1,10 +1,10 @@
 (function () {
-	registerCtrl.$inject = ['User', 'userService', 'fancyboxService'];
+	registerCtrl.$inject = ['User', 'Form', 'fancyboxService'];
 
 	angular.module('app.user')
 	       .controller('registerCtrl', registerCtrl);
 
-	function registerCtrl(User, userService, fancyboxService) {
+	function registerCtrl(User, Form, fancyboxService) {
 		var vm = this;
 		vm.user = {};
 		vm.errorMessage = undefined;
@@ -24,7 +24,7 @@
 					} else {
 						vm.errorMessage = data.message;
 					}
-					vm.user = userService.reset(form);
+					vm.user = Form.reset(form);
 				});
 			}
 		}

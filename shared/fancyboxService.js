@@ -4,7 +4,8 @@
 
 	function fancyboxService() {
 		return {
-			open: open
+			open: open,
+			close: close
 		};
 
 		function open(src) {
@@ -19,6 +20,10 @@
 					touch: false
 				}
 			);
+		}
+
+		function close() {
+			$.fancybox.close();
 		}
 	}
 })();

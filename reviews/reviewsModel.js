@@ -1,13 +1,14 @@
 (function () {
 	Reviews.$inject = ['$http'];
 
-	angular.module('app.products')
+	angular.module('app.reviews')
 	       .service('Reviews', Reviews);
 
 	function Reviews($http) {
 		return {
 			getReviews: getReviews,
-			getAverageRate: getAverageRate /* при расчёте среднего рейтинга не учитываются оценки 0 */
+			getAverageRate: getAverageRate, /* при расчёте среднего рейтинга не учитываются оценки 0 */
+			postReview: postReview
 		};
 
 		function getReviews(productId) {
@@ -47,6 +48,28 @@
 			averageRate = (Math.round(averageRate * 2) / 2).toFixed(decimal);
 
 			return averageRate;
+		}
+
+		function postReview(productId, rate, text) {
+			var req = {
+				method: 'POST',
+				url: 'https://smktesting.herokuapp.com/api/reviews/' + productId,
+				data: {
+					rate: rate,
+					text: text
+				}
+			};
+			return $http(req)
+				.then(postReviewComplete)
+				.catch(postReviewFailed);
+
+			function postReviewComplete(response) {
+				return response.data.success;
+			}
+
+			function postReviewFailed() {
+				return undefined;
+			}
 		}
 	}
 })();

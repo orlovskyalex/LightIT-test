@@ -2,9 +2,9 @@
 	angular.module('app.products')
 	       .controller('productCtrl', productCtrl);
 
-	productCtrl.$inject = ['$scope', 'Products'];
+	productCtrl.$inject = ['$scope', 'Products', 'User'];
 
-	function productCtrl($scope, Products) {
+	function productCtrl($scope, Products, User) {
 		var vm = this;
 		vm.products = [];
 		vm.error = false;
@@ -20,6 +20,10 @@
 				} else {
 					vm.error = true;
 				}
+			});
+
+			$scope.$watch(User.getUser, function (newUser) {
+				vm.user = newUser;
 			});
 
 			return getProducts();

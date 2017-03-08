@@ -1,8 +1,8 @@
 (function () {
-	angular.module('app.user')
-	       .factory('userService', userService);
+	angular.module('app.shared')
+	       .factory('Form', Form);
 
-	function userService() {
+	function Form() {
 		return {
 			reset: reset
 		};
@@ -12,7 +12,7 @@
 				form.$setPristine();
 				form.$setUntouched();
 			}
-			return {};
+			return undefined;
 		}
 	}
 })();
