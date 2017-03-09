@@ -57,8 +57,8 @@
 	<div class="container" ng-controller="productCtrl as products">
 		<div class="products" ng-cloak>
 			<div class="loading" ng-if="!loaded && !products.error"></div>
-			<div class="error" ng-if="products.error">
-				Ooops! Something went wrong. Please, reload this page.
+			<div class="error" ng-if="products.errorMessage">
+				Ooops! Something went wrong. Please, {{products.errorMessage}}.
 			</div>
 			<div class="row" ng-if="loaded && !products.error">
 				<div class="col-sm-6 col-md-4 col-lg-3"

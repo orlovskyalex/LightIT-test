@@ -7,7 +7,7 @@
 	function productCtrl($scope, Products, User) {
 		var vm = this;
 		vm.products = [];
-		vm.error = false;
+		vm.errorMessage = undefined;
 
 		/* получаем список продуктов при инициализации приложения */
 		activate();
@@ -15,11 +15,7 @@
 		function activate() {
 			/* следим, чтобы не было ошибок при получении продуктов от сервиса */
 			$scope.$watch(Products.currentProductsState, function (success) {
-				if (success) {
-					vm.error = false;
-				} else {
-					vm.error = true;
-				}
+				vm.errorMessage = !success;
 			});
 
 			$scope.$watch(User.getUser, function (newUser) {
@@ -30,8 +26,12 @@
 		}
 
 		function getProducts() {
-			return Products.getProducts().then(function (products) {
-				return products ? vm.products = products : vm.error = true;
+			return Products.getProducts().then(function (result) {
+				if (typeof result == 'string') {
+					return vm.errorMessage = result;
+				} else {
+					return vm.products = result;
+				}
 			});
 		}
 	}

@@ -52,8 +52,17 @@
 				return products;
 			}
 
-			function getProductsFailed() {
-				return undefined;
+			function getProductsFailed(error) {
+				var solution;
+				switch (error.statusText) {
+					case 'UNAUTHORIZED':
+						solution = 'relogin';
+						break;
+					default:
+						solution = 'reload this page';
+						break;
+				}
+				return solution;
 			}
 		}
 
