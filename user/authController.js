@@ -6,6 +6,7 @@
 
 	function authCtrl($scope, User) {
 		var vm = this;
+
 		vm.logout = logout;
 
 		activate();
@@ -15,7 +16,7 @@
 				vm.user = newUser;
 			});
 		}
-		
+
 		function logout() {
 			User.logout();
 		}

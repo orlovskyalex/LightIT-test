@@ -173,23 +173,24 @@
 
 	<!-- ФОРМЫ -->
 	<!-- вход -->
-	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl" ng-submit="login(signinForm)">
+	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl as login"
+	      ng-submit="login.login(signinForm)">
 		<div class="form-group">
 			<label for="si-name" class="control-label">Username</label>
-			<input type="text" id="si-name" name="username" class="form-control" ng-model="user.username"
-			       ng-change="onInput()" placeholder="John Doe" required>
+			<input type="text" id="si-name" class="form-control" ng-model="login.user.username"
+			       ng-change="login.resetError()" placeholder="John Doe" required>
 		</div>
 		<div class="form-group">
 			<label for="si-pass" class="control-label">Password</label>
-			<input type="password" id="si-pass" name="password" class="form-control" ng-model="user.password"
-			       ng-change="onInput()" placeholder="Password" required>
+			<input type="password" id="si-pass" class="form-control" ng-model="login.user.password"
+			       ng-change="login.resetError()" placeholder="Password" required>
 		</div>
 		<button type="submit" class="btn btn-primary submit-btn" ng-class="{disabled: signinForm.$invalid}"
 		        ng-disabled="signinForm.$invalid">
 			<span class="glyphicon glyphicon-log-in"></span>
 			Sign in
 		</button>
-		<span class="error" ng-show="errorMessage">{{errorMessage}}</span>
+		<span class="error" ng-show="login.errorMessage">{{login.errorMessage}}</span>
 	</form>
 	<!-- регистрация -->
 	<form class="popup form" id="signup-form" name="signupForm" ng-controller="registerCtrl as reg"
