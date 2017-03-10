@@ -8,18 +8,21 @@
 		var stateContainer = [];
 
 		return {
-			add: function (service) {
-				stateContainer.push(service);
-				$rootScope.loaded = false;
-			},
+			add: add,
+			remove: remove
+		};
 
-			remove: function (service) {
-				var index = stateContainer.indexOf(service);
-				stateContainer.splice(index, 1);
+		function add(service) {
+			stateContainer.push(service);
+			$rootScope.loaded = false;
+		}
 
-				if (stateContainer.length === 0) {
-					$rootScope.loaded = true;
-				}
+		function remove(service) {
+			var index = stateContainer.indexOf(service);
+			stateContainer.splice(index, 1);
+
+			if (stateContainer.length === 0) {
+				$rootScope.loaded = true;
 			}
 		}
 	}
