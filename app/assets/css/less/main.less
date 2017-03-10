@@ -130,6 +130,10 @@ body {
 	}
 }
 
+.products {
+	padding-bottom: 20px;
+}
+
 .product {
 	box-shadow: 0 0 4px 1px rgba(0, 0, 0, .2);
 	cursor: pointer;
@@ -137,6 +141,7 @@ body {
 	padding: 10px;
 	position: relative;
 	text-align: center;
+	transition: all .1s;
 	.image-wrap {
 		img {
 			height: auto;
@@ -146,30 +151,15 @@ body {
 	.product-title {
 		margin: 15px 0;
 	}
-	&::before {
-		background: transparent;
-		box-shadow: 0 0 5px 0 rgba(0, 113, 179, .75);
-		content: '';
-		display: none;
-		height: ~'calc(100% + 20px)';
-		left: 50%;
-		position: absolute;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		width: ~'calc(100% + 20px)';
-	}
 	.reviews-number {
 		display: inline-block;
 		margin: 0 5px;
 		vertical-align: middle;
 	}
 	&:hover {
-		box-shadow: none;
+		box-shadow: 0 0 4px 1px rgba(0, 113, 179, .75);
 		.product-title {
 			color: #0071b3;
-		}
-		&::before {
-			display: block;
 		}
 	}
 }
