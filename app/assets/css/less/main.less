@@ -27,7 +27,7 @@ body {
 			}
 		}
 		.search-wrap {
-			margin-left: 100px;
+			margin: 0 30px 0 100px;
 			position: relative;
 			.search {
 				background-color: #f7f6f6;
@@ -55,6 +55,9 @@ body {
 		}
 		.auth-wrap {
 			margin-left: auto;
+			& > div {
+				white-space: nowrap;
+			}
 			.auth {
 				a {
 					vertical-align: baseline;
@@ -84,8 +87,12 @@ body {
 					}
 				}
 				.username {
+					display: inline-block;
 					font-family: @font-OpenSansRegular;
 					margin: 0 20px 0 10px;
+					max-width: 200px;
+					overflow: hidden;
+					text-overflow: ellipsis;
 					vertical-align: middle;
 				}
 				&:hover {
