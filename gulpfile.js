@@ -14,7 +14,6 @@ var gulp = require('gulp'),
 	runSequence = require('run-sequence'),
 	sourcemaps = require('gulp-sourcemaps'),
 	uglify = require('gulp-uglify'),
-	uncss = require('gulp-uncss'),
 	wrap = require('gulp-wrap');
 
 var config = require('./gulpconfig.json');
@@ -76,17 +75,14 @@ gulp.task('build-less', function () {
 		           return file.base;
 	           }))
 	           .pipe(sourcemaps.init())
+	           .pipe(less())
 	           .pipe(autoprefixer({
 		                              browsers: config.styles.autoprefixer,
 		                              cascade: false
 	                              }))
-	           .pipe(less())
-	           .pipe(uncss({
-		                       html: getFiles(config.html.files)
-	                       }))
 	           .pipe(cleanCSS())
 	           .pipe(rename(config.styles.less.css))
-	           .pipe(sourcemaps.write())
+	           .pipe(sourcemaps.write('.'))
 	           .pipe(gulp.dest(config.public + config.styles.out));
 });
 
@@ -94,11 +90,8 @@ gulp.task('build-css', function () {
 	return gulp.src(getFiles(config.styles.css.files))
 	           .pipe(sourcemaps.init())
 	           .pipe(concat(config.styles.css.css))
-	           .pipe(uncss({
-		                       html: getFiles(config.html.files)
-	                       }))
 	           .pipe(cleanCSS())
-	           .pipe(sourcemaps.write())
+	           .pipe(sourcemaps.write('.'))
 	           .pipe(gulp.dest(config.public + config.styles.out));
 });
 
@@ -108,7 +101,7 @@ gulp.task('build-scripts', function () {
 	           .pipe(wrap('(function () {\n\'use strict\';\n<%= contents %>\n})();'))
 	           .pipe(concat(config.scripts.app.js))
 	           .pipe(uglify())
-	           .pipe(sourcemaps.write())
+	           .pipe(sourcemaps.write('.'))
 	           .pipe(gulp.dest(config.public + config.scripts.out));
 });
 
@@ -117,7 +110,7 @@ gulp.task('build-scripts-libraries', function () {
 	           .pipe(sourcemaps.init())
 	           .pipe(concat(config.scripts.vendors.js))
 	           .pipe(uglify())
-	           .pipe(sourcemaps.write())
+	           .pipe(sourcemaps.write('.'))
 	           .pipe(gulp.dest(config.public + config.scripts.out));
 });
 

@@ -16,7 +16,6 @@
     "gulp-replace": "^0.5.4",
     "gulp-sourcemaps": "^2.4.0",
     "gulp-uglify": "^2.0.0",
-    "gulp-uncss": "^1.0.6",
     "gulp-wrap": "^0.13.0",
     "run-sequence": "^1.2.2"
   },
