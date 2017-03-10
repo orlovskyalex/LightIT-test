@@ -6,15 +6,16 @@
 	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Testimonials fot LightIT</title>
-	<link rel="stylesheet" href="assets/css/vendors.min.css">
-	<link rel="stylesheet" href="assets/css/app.min.css">
+	<link rel="icon" type="image/x-icon" href="images/favicon/favicon.ico">
+	<link rel="stylesheet" href="css/vendors.min.css?version">
+	<link rel="stylesheet" href="css/app.min.css?version">
 </head>
 <body>
 	<header class="header-top">
 		<div class="container">
 			<div class="header">
 				<a class="logo" href="#">
-					<img src="assets/images/logo.png" alt="OTZOVIK mini logo">
+					<img src="images/logo.png" alt="OTZOVIK mini logo">
 				</a>
 				<div class="search-wrap">
 					<input type="search" class="search" ng-model="search">
@@ -65,7 +66,7 @@
 				     ng-repeat="product in products.products | filter:{title:search}">
 					<div class="product" fancybox="{{'#product_' + product.id}}">
 						<div class="image-wrap">
-							<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
+							<img ng-src="images/products/{{product.img}}" alt="{{product.title}}">
 						</div>
 						<div class="product-title">
 							{{product.title}}
@@ -82,7 +83,7 @@
 						<div class="row">
 							<div class="col-md-5">
 								<div class="image-wrap">
-									<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
+									<img ng-src="images/products/{{product.img}}" alt="{{product.title}}">
 								</div>
 							</div>
 							<div class="col-md-7">
@@ -241,7 +242,7 @@
 		</p>
 	</div>
 
-	<script src="assets/js/vendors.min.js"></script>
-	<script src="app.min.js"></script>
+	<script src="js/vendors.min.js?version"></script>
+	<script src="js/app.min.js?version"></script>
 </body>
 </html>

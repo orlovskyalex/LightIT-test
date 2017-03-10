@@ -1,0 +1,80 @@
+{
+	"private": "app/",
+	"public": "dist/",
+	"images": {
+		"favicons": {
+			"files": [
+				"/assets/images/favicon/**/*.png",
+				"/assets/images/favicon/**/*.svg",
+				"/assets/images/favicon/**/*.ico"
+			],
+			"out": "/images/favicon"
+		},
+		"single": {
+			"files": [
+				"/assets/images/single/**/*.png",
+				"/assets/images/single/**/*.jpg",
+				"/assets/images/single/**/*.gif",
+				"/assets/images/single/**/*.svg"
+			],
+			"out": "/images"
+		}
+	},
+	"fonts": {
+		"files": [
+			"/assets/fonts/**/*.eot",
+			"/assets/fonts/**/*.svg",
+			"/assets/fonts/**/*.ttf",
+			"/assets/fonts/**/*.woff",
+			"/assets/fonts/**/*.woff2"
+		],
+		"out": "/fonts"
+	},
+	"styles": {
+		"css": {
+			"files": [
+				"/assets/css/vendors/**/*.css"
+			],
+			"css": "vendors.min.css"
+		},
+		"less": {
+			"dir": "/assets/css/less",
+			"files": [
+				"/assets/css/less/main.less"
+			],
+			"watch": [
+				"/assets/css/less/*.less"
+			],
+			"css": "app.min.css"
+		},
+		"autoprefixer": [
+			"last 10 versions",
+			"> 1%"
+		],
+		"out": "/css"
+	},
+	"scripts": {
+		"vendors": {
+			"files": [
+				"/assets/js/**/angular.js",
+				"/assets/js/**/jquery-*.js",
+				"/assets/js/**/*.js"
+			],
+			"js": "vendors.min.js"
+		},
+		"app": {
+			"files": [
+				"/js/**/app.*.js",
+				"/js/**/*.js"
+			],
+			"js": "app.min.js"
+		},
+		"out": "/js"
+	},
+	"html": {
+		"files": [
+			"/*.html"
+		],
+		"out": "/"
+	}
+}

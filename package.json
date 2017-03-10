@@ -1,17 +1,31 @@
 {
-	"name": "test.light-it.net",
-	"version": "1.0.0",
-	"main": "gulpfile.js",
-	"devDependencies": {
-		"gulp": "^3.9.1",
-		"gulp-csscomb": "^3.0.8"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/orlovskyalex/LightIT-test.git"
-	},
-	"bugs": {
-		"url": "https://github.com/orlovskyalex/LightIT-test/issues"
-	},
-	"homepage": "https://github.com/orlovskyalex/LightIT-test#readme"
+  "name": "test.light-it.net",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-copy": "^1.0.0",
+    "gulp-csscomb": "^3.0.8",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-less": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-uncss": "^1.0.6",
+    "gulp-wrap": "^0.13.0",
+    "run-sequence": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orlovskyalex/LightIT-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/orlovskyalex/LightIT-test/issues"
+  },
+  "homepage": "https://github.com/orlovskyalex/LightIT-test#readme"
 }
