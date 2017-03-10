@@ -5,59 +5,83 @@
 	       .factory('User', User);
 
 	function User($http, $cookies) {
-		var user;
+		var user = {};
 
 		if (user = $cookies.getObject('user')) {
 			$http.defaults.headers.common['Authorization'] = 'Token ' + user.token;
 		}
 
 		return {
-			getUser: function () {
-				return user;
-			},
-			register: function (username, password) {
-				var req = {
-					method: 'POST',
-					url: 'https://smktesting.herokuapp.com/api/register/',
-					data: {
-						username: username,
-						password: password
-					}
-				};
-				return $http(req).then(function (response) {
-					return response.data;
-				});
-			},
-			login: function (username, password) {
-				var req = {
-					method: 'POST',
-					url: 'https://smktesting.herokuapp.com/api/login/',
-					data: {
-						username: username,
-						password: password
-					}
-				};
-				return $http(req).then(function (response) {
-					if (response.data.success) {
-						user = {
-							username: username,
-							token: response.data.token
-						};
+			getUser: getUser,
+			register: register,
+			login: login,
+			logout: logout
+		};
 
-						$http.defaults.headers.common['Authorization'] = 'Token ' + user.token;
+		function getUser() {
+			return user;
+		}
 
-						var date = new Date();
-						date.setDate(date.getDate() + 1);
-						$cookies.putObject('user', user, {expires: date});
-					}
-					return response.data;
-				});
-			},
-			logout: function () {
-				$cookies.remove('user');
-				$http.defaults.headers.common['Authorization'] = undefined;
-				user = undefined;
+		function register(username, password) {
+			var req = {
+				method: 'POST',
+				url: 'https://smktesting.herokuapp.com/api/register/',
+				data: {
+					username: username,
+					password: password
+				}
+			};
+			return $http(req)
+				.then(registerComplete)
+				.catch(registerFailed);
+
+			function registerComplete(response) {
+				return response.data;
 			}
+
+			function registerFailed() {
+				return undefined;
+			}
+		}
+
+		function login(username, password) {
+			var req = {
+				method: 'POST',
+				url: 'https://smktesting.herokuapp.com/api/login/',
+				data: {
+					username: username,
+					password: password
+				}
+			};
+			return $http(req)
+				.then(loginComplete)
+				.catch(loginFailed);
+
+			function loginComplete(response) {
+				if (response.data.success) {
+					user = {
+						username: username,
+						token: response.data.token
+					};
+
+					$http.defaults.headers.common['Authorization'] = 'Token ' + user.token;
+
+					var date = new Date();
+					date.setDate(date.getDate() + 1);
+					$cookies.putObject('user', user, {expires: date});
+				}
+				return response.data;
+			}
+
+			function loginFailed() {
+				return undefined;
+			}
+		}
+
+		function logout() {
+			$cookies.remove('user');
+			$http.defaults.headers.common['Authorization'] = undefined;
+			user = undefined;
 		}
 	}
 })();

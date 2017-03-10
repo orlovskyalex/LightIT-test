@@ -19,10 +19,14 @@
 
 			if (username && password) {
 				User.register(username, password).then(function (data) {
-					if (data.success) {
-						fancyboxService.open('#regSuccess');
+					if (data) {
+						if (data.success) {
+							fancyboxService.open('#regSuccess');
+						} else {
+							vm.errorMessage = data.message;
+						}
 					} else {
-						vm.errorMessage = data.message;
+						vm.errorMessage = 'Ooops! Something went wrong. Please, try again.';
 					}
 					vm.user = Form.reset(form);
 				});
