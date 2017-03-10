@@ -20,8 +20,8 @@
 					<input type="search" class="search" ng-model="search">
 					<span class="glyphicon glyphicon-search"></span>
 				</div>
-				<div class="auth-wrap" ng-controller="authCtrl" ng-cloak>
-					<div class="auth" ng-if="!user">
+				<div class="auth-wrap" ng-controller="authCtrl as auth" ng-cloak>
+					<div class="auth" ng-if="!auth.user">
 						<button class="btn btn-primary" fancybox="#signin-form">
 							<span class="glyphicon glyphicon-log-in"></span>
 							Sign in
@@ -32,7 +32,7 @@
 							Sign up
 						</button>
 					</div>
-					<div class="user-wrap" ng-if="user">
+					<div class="user-wrap" ng-if="auth.user">
 						<a href="#" class="user">
 							<!-- аватар тут чисто декоративный -->
 							<div class="userpic">
@@ -40,10 +40,10 @@
 								<img src="http://placehold.it/38?text=+" class="img-circle" alt="avatar">
 							</div>
 							<span class="username">
-								{{user.username}}
+								{{auth.user.username}}
 							</span>
 						</a>
-						<button class="btn btn-default" ng-click="logout()">
+						<button class="btn btn-default" ng-click="auth.logout()">
 							<span class="glyphicon glyphicon-log-out"></span>
 							Logout
 						</button>

@@ -5,12 +5,19 @@
 	       .controller('authCtrl', authCtrl);
 
 	function authCtrl($scope, User) {
-		$scope.$watch(User.getUser, function (newUser) {
-			$scope.user = newUser;
-		});
+		var vm = this;
+		vm.logout = logout;
 
-		$scope.logout = function () {
+		activate();
+
+		function activate() {
+			$scope.$watch(User.getUser, function (newUser) {
+				vm.user = newUser;
+			});
+		}
+		
+		function logout() {
 			User.logout();
-		};
+		}
 	}
 })();
