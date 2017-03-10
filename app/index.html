@@ -60,7 +60,7 @@
 				Ooops! Something went wrong. Please, {{products.errorMessage}}.
 			</div>
 			<div class="row" ng-if="loaded && !products.errorMessage">
-				<div class="col-sm-6 col-md-4 col-lg-3"
+				<div class="col-sm-4 col-md-3"
 				     ng-repeat="product in products.products | filter:{title:search}">
 					<div class="product" fancybox="{{'#product_' + product.id}}">
 						<div class="image-wrap">
