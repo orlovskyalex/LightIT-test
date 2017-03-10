@@ -20,17 +20,20 @@
 
 			$scope.$watch(User.getUser, function (newUser) {
 				vm.user = newUser;
+				if (!vm.products || vm.products.length == 0) {
+					getProducts();
+				}
 			});
 
-			return getProducts();
+			getProducts();
 		}
 
 		function getProducts() {
-			return Products.getProducts().then(function (result) {
+			Products.getProducts().then(function (result) {
 				if (typeof result == 'string') {
-					return vm.errorMessage = result;
+					vm.errorMessage = result;
 				} else {
-					return vm.products = result;
+					vm.products = result;
 				}
 			});
 		}
