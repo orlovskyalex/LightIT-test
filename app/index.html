@@ -40,9 +40,7 @@
 								<span class="glyphicon glyphicon-user"></span>
 								<img src="http://placehold.it/38?text=+" class="img-circle" alt="avatar">
 							</div>
-							<span class="username">
-								{{auth.user.username}}
-							</span>
+							<span class="username">{{auth.user.username}}</span>
 						</a>
 						<button class="btn btn-default" ng-click="auth.logout()">
 							<span class="glyphicon glyphicon-log-out"></span>
@@ -149,8 +147,7 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="product-reviews">
-									<div class="review"
-									     ng-repeat="review in product.reviews | orderBy:'-created_at'">
+									<div class="review" ng-repeat="review in product.reviews | orderBy:'-created_at'">
 										<div class="meta">
 											<span class="username">{{review.created_by.username}}</span>
 											<div class="stars-rating" ng-if="review.rate">
@@ -159,9 +156,7 @@
 											</div>
 											<span class="date">{{review.created_at | date:'dd MMMM yyyy'}}</span>
 										</div>
-										<p class="text">
-											{{review.text}}
-										</p>
+										<p class="text">{{review.text}}</p>
 									</div>
 								</div>
 							</div>
