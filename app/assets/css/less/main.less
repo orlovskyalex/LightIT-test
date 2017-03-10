@@ -1,5 +1,6 @@
 @import 'fonts';
 @import 'variables';
+@import 'mixins';
 
 body {
 	font: normal 16px @font-OpenSansRegular;
@@ -17,18 +18,46 @@ body {
 		align-items: center;
 		display: flex;
 		padding: 10px;
+		@media screen and (max-width: 767px) {
+			display: block;
+			@media (min-width: 596px) {
+				.clearfix();
+			}
+		}
 		.logo {
 			border-radius: 3px;
+			display: block;
 			overflow: hidden;
 			width: 205px;
+			@media screen and (max-width: 767px) {
+				float: left;
+			}
+			@media screen and (max-width: 595px) {
+				background: #94302f;
+				float: none;
+				text-align: center;
+				width: 100%;
+			}
 			img {
 				height: auto;
 				width: 100%;
+				@media screen and (max-width: 595px) {
+					width: 170px;
+				}
 			}
 		}
 		.search-wrap {
 			margin: 0 30px 0 100px;
 			position: relative;
+			@media screen and (max-width: 990px) {
+				margin: 0 30px;
+			}
+			@media screen and (max-width: 767px) {
+				margin: 0 0 17px 235px;
+			}
+			@media screen and (max-width: 595px) {
+				margin: 20px 0;
+			}
 			.search {
 				background-color: #f7f6f6;
 				border: 1px solid #e7e7e7;
@@ -36,6 +65,12 @@ body {
 				font: normal 1em @font-OpenSansRegular;
 				padding: 5px 31px 5px 10px;
 				width: 400px;
+				@media screen and (max-width: 990px) {
+					width: 250px;
+				}
+				@media screen and (max-width: 767px) {
+					width: 100%;
+				}
 			}
 			span {
 				color: #6d6d6d;
@@ -55,6 +90,12 @@ body {
 		}
 		.auth-wrap {
 			margin-left: auto;
+			@media screen and (max-width: 767px) {
+				margin-left: 235px;
+			}
+			@media screen and (max-width: 595px) {
+				margin: 0;
+			}
 			& > div {
 				white-space: nowrap;
 			}
@@ -70,34 +111,73 @@ body {
 					margin: 0 10px;
 				}
 			}
-			.user {
-				color: inherit;
-				cursor: pointer;
-				display: inline-block;
-				text-decoration: none;
-				.userpic {
+			.user-wrap {
+				@media screen and (max-width: 767px) {
+					align-items: center;
+					display: flex;
+				}
+				.user {
+					color: inherit;
+					cursor: pointer;
 					display: inline-block;
-					position: relative;
-					.glyphicon {
-						color: #fff;
-						left: 50%;
-						position: absolute;
-						top: 50%;
-						transform: translate(-50%, -50%);
+					text-decoration: none;
+					@media screen and (max-width: 767px) {
+						align-items: center;
+						display: inline-flex;
+						flex-grow: 1;
+						margin-right: 20px;
+						max-width: ~'calc(100% - 113px)';
+					}
+					.userpic {
+						display: inline-block;
+						position: relative;
+						@media screen and (max-width: 990px) {
+							width: 30px;
+						}
+						@media screen and (max-width: 767px) {
+							flex-shrink: 0;
+							width: 34px;
+						}
+						.glyphicon {
+							color: #fff;
+							left: 50%;
+							position: absolute;
+							top: 50%;
+							transform: translate(-50%, -50%);
+							@media screen and (max-width: 990px) {
+								font-size: 14px;
+							}
+							@media screen and (max-width: 767px) {
+								font-size: 15px;
+							}
+						}
+						img {
+							width: 100%;
+						}
+					}
+					.username {
+						display: inline-block;
+						font-family: @font-OpenSansRegular;
+						margin: 0 20px 0 10px;
+						max-width: 200px;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						vertical-align: middle;
+						@media screen and (max-width: 767px) {
+							flex-grow: 1;
+							margin: 0 0 0 14px;
+							max-width: none;
+						}
+					}
+					&:hover {
+						.username {
+							text-decoration: underline;
+						}
 					}
 				}
-				.username {
-					display: inline-block;
-					font-family: @font-OpenSansRegular;
-					margin: 0 20px 0 10px;
-					max-width: 200px;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					vertical-align: middle;
-				}
-				&:hover {
-					.username {
-						text-decoration: underline;
+				.btn {
+					@media screen and (max-width: 767px) {
+						margin-left: auto;
 					}
 				}
 			}
