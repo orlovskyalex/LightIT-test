@@ -1,17 +1,17 @@
 {
-  "name": "test.light-it.net",
-  "version": "1.0.0",
-  "main": "gulpfile.js",
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-csscomb": "^3.0.8"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/orlovskyalex/LightIT-test.git"
-  },
-  "bugs": {
-    "url": "https://github.com/orlovskyalex/LightIT-test/issues"
-  },
-  "homepage": "https://github.com/orlovskyalex/LightIT-test#readme"
+	"name": "test.light-it.net",
+	"version": "1.0.0",
+	"main": "gulpfile.js",
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-csscomb": "^3.0.8"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/orlovskyalex/LightIT-test.git"
+	},
+	"bugs": {
+		"url": "https://github.com/orlovskyalex/LightIT-test/issues"
+	},
+	"homepage": "https://github.com/orlovskyalex/LightIT-test#readme"
 }

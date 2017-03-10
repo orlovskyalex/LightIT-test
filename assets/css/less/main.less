@@ -99,11 +99,6 @@ body {
 	padding: 30px;
 	&.form {
 		width: 500px;
-		.error {
-			color: red;
-			margin-left: 10px;
-			vertical-align: middle;
-		}
 	}
 	&.notification {
 		font: normal 28px @font-OpenSansRegular;
@@ -202,23 +197,24 @@ body {
 	}
 	.review {
 		&:not(:last-child) {
+			border-bottom: 1px solid #eaeaea;
 			margin-bottom: 30px;
+			padding-bottom: 20px;
 		}
-		.username {
-			display: inline-block;
-			font-size: 18px;
-			font-weight: bold;
-			margin-right: 30px;
-			vertical-align: middle;
-		}
-		.stars-rating {
-			margin: 0;
-			vertical-align: middle;
-		}
-		.date {
-			display: inline-block;
-			float: right;
-			vertical-align: middle;
+		.meta {
+			align-items: center;
+			display: flex;
+			.username {
+				font: normal 18px/1 @font-OpenSansSemiBold;
+				margin-right: 30px;
+			}
+			.stars-rating {
+				margin: 0;
+			}
+			.date {
+				font-size: 14px;
+				margin-left: auto;
+			}
 		}
 		.text {
 			margin: 10px 0 0;
@@ -262,45 +258,58 @@ body {
 	}
 }
 
-.post-stars-rating {
-	font-size: 0;
-	margin-bottom: 10px;
-	.stars-rating-wrap {
-		display: inline-block;
-		font-size: 18px;
-		&::after {
-			clear: both;
-			content: '';
-			display: table;
-		}
-		.stars-rating-ico {
-			color: #ffb300;
-			cursor: pointer;
-			float: right;
-			padding-left: 2px;
-			&:last-child {
-				padding-left: 0;
+.post-review {
+	.post-stars-rating {
+		font-size: 0;
+		margin-bottom: 10px;
+		.stars-rating-wrap {
+			display: inline-block;
+			font-size: 18px;
+			&::after {
+				clear: both;
+				content: '';
+				display: table;
 			}
-			&:hover {
-				&::before {
-					content: '\f005';
+			.stars-rating-ico {
+				color: #ffb300;
+				cursor: pointer;
+				float: right;
+				padding-left: 2px;
+				&:last-child {
+					padding-left: 0;
 				}
-				& ~ .stars-rating-ico {
+				&:hover {
 					&::before {
 						content: '\f005';
+					}
+					& ~ .stars-rating-ico {
+						&::before {
+							content: '\f005';
+						}
+					}
+				}
+			}
+			.stars-rating-input {
+				display: none;
+				&:checked {
+					& ~ .stars-rating-ico {
+						&::before {
+							content: '\f005';
+						}
 					}
 				}
 			}
 		}
-		.stars-rating-input {
-			display: none;
-			&:checked {
-				& ~ .stars-rating-ico {
-					&::before {
-						content: '\f005';
-					}
-				}
-			}
-		}
+	}
+	.text {
+		resize: vertical;
+	}
+}
+
+.form {
+	.error {
+		color: red;
+		margin-left: 10px;
+		vertical-align: middle;
 	}
 }

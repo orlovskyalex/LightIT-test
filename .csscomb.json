@@ -8,7 +8,9 @@
 	"leading-zero": false,
 	"quotes": "single",
 	"remove-empty-rulesets": true,
-	"sort-order": ["..."],
+	"sort-order": [
+		"..."
+	],
 	"sort-order-fallback": "abc",
 	"space-before-colon": 0,
 	"space-after-colon": 1,

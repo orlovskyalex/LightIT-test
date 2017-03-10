@@ -1,48 +1,49 @@
 <!doctype html>
-<html lang="en" ng-app="root">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport"
 	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Testimonials fot LightIT</title>
-	<link rel="stylesheet" href="css/vendors.min.css">
-	<link rel="stylesheet" href="css/app.min.css">
+	<link rel="stylesheet" href="assets/css/vendors.min.css">
+	<link rel="stylesheet" href="assets/css/app.min.css">
 </head>
 <body>
 	<header class="header-top">
 		<div class="container">
 			<div class="header">
 				<a class="logo" href="#">
-					<img src="images/logo.png" alt="OTZOVIK mini logo">
+					<img src="assets/images/logo.png" alt="OTZOVIK mini logo">
 				</a>
 				<div class="search-wrap">
 					<input type="search" class="search" ng-model="search">
 					<span class="glyphicon glyphicon-search"></span>
 				</div>
-				<div class="auth-wrap" ng-controller="authCtrl" ng-cloak>
-					<div class="auth" ng-if="!user">
-						<button class="btn btn-primary fancybox" data-src="#signin-form">
+				<div class="auth-wrap" ng-controller="authCtrl as auth" ng-cloak>
+					<div class="auth" ng-if="!auth.user">
+						<button class="btn btn-primary" fancybox="#signin-form">
 							<span class="glyphicon glyphicon-log-in"></span>
 							Sign in
 						</button>
 						<span class="or">or</span>
-						<button class="btn btn-success fancybox" data-src="#signup-form">
+						<button class="btn btn-success" fancybox="#signup-form">
 							<span class="glyphicon glyphicon-user"></span>
 							Sign up
 						</button>
 					</div>
-					<div class="user-wrap" ng-if="user">
+					<div class="user-wrap" ng-if="auth.user">
 						<a href="#" class="user">
+							<!-- аватар тут чисто декоративный -->
 							<div class="userpic">
 								<span class="glyphicon glyphicon-user"></span>
 								<img src="http://placehold.it/38?text=+" class="img-circle" alt="avatar">
 							</div>
 							<span class="username">
-								{{user.username}}
+								{{auth.user.username}}
 							</span>
 						</a>
-						<button class="btn btn-default" ng-click="logout()">
+						<button class="btn btn-default" ng-click="auth.logout()">
 							<span class="glyphicon glyphicon-log-out"></span>
 							Logout
 						</button>
@@ -53,14 +54,18 @@
 	</header>
 
 	<!-- ПРОДУКТЫ -->
-	<div class="container" ng-controller="productCtrl">
-		<div class="products">
-			<div class="loading" ng-hide="loaded"></div>
-			<div class="row" ng-show="loaded">
-				<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="product in products | filter:search">
-					<div class="product fancybox" data-src="{{'#product_' + product.id}}">
+	<div class="container" ng-controller="productCtrl as products">
+		<div class="products" ng-cloak>
+			<div class="loading" ng-if="!loaded && !products.errorMessage"></div>
+			<div class="error" ng-if="products.errorMessage">
+				Ooops! Something went wrong. Please, {{products.errorMessage}}.
+			</div>
+			<div class="row" ng-if="loaded && !products.errorMessage">
+				<div class="col-sm-6 col-md-4 col-lg-3"
+				     ng-repeat="product in products.products | filter:{title:search}">
+					<div class="product" fancybox="{{'#product_' + product.id}}">
 						<div class="image-wrap">
-							<img ng-src="images/products/{{product.img}}" alt="{{product.title}}">
+							<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
 						</div>
 						<div class="product-title">
 							{{product.title}}
@@ -77,7 +82,7 @@
 						<div class="row">
 							<div class="col-md-5">
 								<div class="image-wrap">
-									<img ng-src="images/products/{{product.img}}" alt="{{product.title}}">
+									<img ng-src="assets/images/products/{{product.img}}" alt="{{product.title}}">
 								</div>
 							</div>
 							<div class="col-md-7">
@@ -95,63 +100,67 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" ng-if="products.user">
 							<div class="col-sm-12">
-								<form ng-if="user" class="post-review" name="reviewForm"
-								      ng-controller="postReviewCtrl" ng-submit="postReview(reviewForm)">
-									<input type="hidden" ng-model="product.id" value="{{product.id}}">
+								<form class="form post-review" name="reviewForm"
+								      ng-controller="postReviewCtrl as post" ng-submit="post.postReview(reviewForm)">
+									<input type="hidden" ng-init="post.product.id = product.id">
 									<div class="post-stars-rating">
 										<div class="stars-rating-wrap">
 											<input class="stars-rating-input" id="stars-rating-5" type="radio"
-											       ng-model="product.rate" value="5">
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="5">
 											<label class="stars-rating-ico fa fa-star-o fa-lg"
 											       for="stars-rating-5"></label>
 											<input class="stars-rating-input" id="stars-rating-4" type="radio"
-											       ng-model="product.rate" value="4">
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="4">
 											<label class="stars-rating-ico fa fa-star-o fa-lg"
 											       for="stars-rating-4"></label>
 											<input class="stars-rating-input" id="stars-rating-3" type="radio"
-											       ng-model="product.rate" value="3">
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="3">
 											<label class="stars-rating-ico fa fa-star-o fa-lg"
 											       for="stars-rating-3"></label>
 											<input class="stars-rating-input" id="stars-rating-2" type="radio"
-											       ng-model="product.rate" value="2">
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="2">
 											<label class="stars-rating-ico fa fa-star-o fa-lg"
 											       for="stars-rating-2"></label>
 											<input class="stars-rating-input" id="stars-rating-1" type="radio"
-											       ng-model="product.rate" value="1">
+											       ng-model="post.product.rate" ng-change="post.resetError()" value="1">
 											<label class="stars-rating-ico fa fa-star-o fa-lg"
 											       for="stars-rating-1"></label>
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="review" class="control-label">Comment:</label>
-										<textarea id="review" class="form-control" ng-model="product.review"
-										          required></textarea>
+										<textarea id="review" class="text form-control" ng-model="post.product.review"
+										          ng-change="post.resetError()" rows="5" required></textarea>
 									</div>
 									<button class="btn btn-primary" ng-class="{disabled: reviewForm.$invalid}"
 									        ng-disabled="reviewForm.$invalid">
 										<span class="glyphicon glyphicon-ok"></span>
 										Post
 									</button>
+									<span class="error" ng-if="post.error">
+										Something went wrong. Please, try again.
+									</span>
 								</form>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="product-reviews">
-									<div class="review" ng-repeat="review in product.reviews">
-									<div class="meta">
-										<span class="username">{{review.created_by.username}}</span>
-										<div class="stars-rating" ng-if="review.rate">
-											<div class="stars-rating-current"
-											     style="{{'width: ' + review.rate / 5 * 100 + '%;'}}"></div>
+									<div class="review"
+									     ng-repeat="review in product.reviews | orderBy:'-created_at'">
+										<div class="meta">
+											<span class="username">{{review.created_by.username}}</span>
+											<div class="stars-rating" ng-if="review.rate">
+												<div class="stars-rating-current"
+												     style="{{'width: ' + review.rate / 5 * 100 + '%;'}}"></div>
+											</div>
+											<span class="date">{{review.created_at | date:'dd MMMM yyyy'}}</span>
 										</div>
-										<span class="date">{{review.created_at}}</span>
-									</div>
-									<p class="text">
-										{{review.text}}
-									</p>
+										<p class="text">
+											{{review.text}}
+										</p>
 									</div>
 								</div>
 							</div>
@@ -163,72 +172,76 @@
 	</div>
 
 	<!-- ФОРМЫ -->
-	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl"
-	      ng-submit="login(signinForm)">
+	<!-- вход -->
+	<form class="popup form" id="signin-form" name="signinForm" ng-controller="loginCtrl as login"
+	      ng-submit="login.login(signinForm)">
 		<div class="form-group">
 			<label for="si-name" class="control-label">Username</label>
-			<input type="text" id="si-name" name="username" class="form-control" ng-model="user.username"
-			       ng-change="onInput()" placeholder="John Doe" required>
+			<input type="text" id="si-name" class="form-control" ng-model="login.user.username"
+			       ng-change="login.resetError()" placeholder="John Doe" required>
 		</div>
 		<div class="form-group">
 			<label for="si-pass" class="control-label">Password</label>
-			<input type="password" id="si-pass" name="password" class="form-control" ng-model="user.password"
-			       ng-change="onInput()" placeholder="Password" required>
+			<input type="password" id="si-pass" class="form-control" ng-model="login.user.password"
+			       ng-change="login.resetError()" placeholder="Password" required>
 		</div>
 		<button type="submit" class="btn btn-primary submit-btn" ng-class="{disabled: signinForm.$invalid}"
 		        ng-disabled="signinForm.$invalid">
 			<span class="glyphicon glyphicon-log-in"></span>
 			Sign in
 		</button>
-		<span class="error" ng-show="errorMessage">{{errorMessage}}</span>
+		<span class="error" ng-show="login.errorMessage">{{login.errorMessage}}</span>
 	</form>
-	<form class="popup form" id="signup-form" name="signupForm" ng-controller="registerCtrl"
-	      ng-submit="register(signupForm)">
+	<!-- регистрация -->
+	<form class="popup form" id="signup-form" name="signupForm" ng-controller="registerCtrl as reg"
+	      ng-submit="reg.register(signupForm)">
 		<div class="form-group">
 			<label for="su-name" class="control-label">Username</label>
-			<input type="text" id="su-name" name="username" class="form-control" ng-model="user.username"
-			       ng-change="onInput()" placeholder="John Doe" required>
+			<input type="text" id="su-name" class="form-control" ng-model="reg.user.username"
+			       ng-change="reg.resetError()" placeholder="John Doe" required>
 		</div>
 		<div class="form-group">
 			<label for="su-pass" class="control-label">Password</label>
-			<input type="password" id="su-pass" name="password" class="form-control" ng-model="user.password"
-			       ng-change="onInput()" placeholder="Password" required>
+			<input type="password" id="su-pass" class="form-control" ng-model="reg.user.password"
+			       ng-change="reg.resetError()" placeholder="Password" required>
 		</div>
 		<div class="form-group">
 			<label for="su-c-pass" class="control-label">Confirm password</label>
-			<input type="password" id="su-c-pass" name="confirm-password" class="form-control"
-			       ng-model="user.confirmPassword" ng-change="onInput()" placeholder="Confirm password" required>
+			<input type="password" id="su-c-pass" class="form-control" ng-model="reg.user.confirmPassword"
+			       ng-change="reg.resetError()" placeholder="Confirm password" required>
 		</div>
 		<button type="submit" class="btn btn-success submit-btn"
-		        ng-class="{disabled: signupForm.$invalid || confirmPassword !== password}"
-		        ng-disabled="signupForm.$invalid || confirmPassword !== password">
+		        ng-class="{disabled: signupForm.$invalid || reg.user.confirmPassword !== reg.user.password}"
+		        ng-disabled="signupForm.$invalid || reg.user.confirmPassword !== reg.user.password">
 			<span class="glyphicon glyphicon-user"></span>
 			Sign up
 		</button>
-		<span class="error" ng-show="errorMessage">{{errorMessage}}</span>
+		<span class="error" ng-if="reg.errorMessage">{{reg.errorMessage}}</span>
 	</form>
 
 	<!-- УВЕДОМЛЕНИЯ -->
+	<!-- успешная регистрация -->
 	<div class="popup notification success" id="regSuccess">
 		<i class="fa fa-check-circle-o" aria-hidden="true"></i>
 		<header>Congratulation!</header>
 		<p>You can now sign in.</p>
-		<button class="btn btn-primary fancybox" data-src="#signin-form">
+		<button class="btn btn-primary" fancybox="#signin-form">
 			<span class="glyphicon glyphicon-log-in"></span>
 			Sign in
 		</button>
 	</div>
+	<!-- отзыв опубликован -->
 	<div class="popup notification success" id="postSuccess">
 		<i class="fa fa-check-circle-o" aria-hidden="true"></i>
 		<header>Congratulation!</header>
 		<p>
 			Your review was successfully posted!
 			<br>
-			Please, refresh page to see it.
+			Please, refresh the page to see it.
 		</p>
 	</div>
 
-	<script src="js/vendors.min.js"></script>
-	<script src="js/app.min.js"></script>
+	<script src="assets/js/vendors.min.js"></script>
+	<script src="app.min.js"></script>
 </body>
 </html>
